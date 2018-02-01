@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.mapper.PcsPermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.pojo.PcsPermission" >
+    <id column="PCS_UUID" property="pcsUuid" jdbcType="VARCHAR" />
+    <result column="PCS_ID" property="pcsId" jdbcType="VARCHAR" />
+    <result column="PCS_NAME" property="pcsName" jdbcType="VARCHAR" />
+    <result column="PCS_DESCRIPTION" property="pcsDescription" jdbcType="VARCHAR" />
+    <result column="PCS_CREATER" property="pcsCreater" jdbcType="VARCHAR" />
+    <result column="PCS_CREATETIME" property="pcsCreatetime" jdbcType="TIMESTAMP" />
+    <result column="PCS_MODIFIEDER" property="pcsModifieder" jdbcType="VARCHAR" />
+    <result column="PCS_MODIFIEDTIME" property="pcsModifiedtime" jdbcType="TIMESTAMP" />
+    <result column="PCS_STATUS" property="pcsStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PCS_UUID, PCS_ID, PCS_NAME, PCS_DESCRIPTION, PCS_CREATER, PCS_CREATETIME, PCS_MODIFIEDER, 
+    PCS_MODIFIEDTIME, PCS_STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ssm.pojo.PcsPermissionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PCS_PERMISSION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PCS_PERMISSION
+    where PCS_UUID = #{pcsUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PCS_PERMISSION
+    where PCS_UUID = #{pcsUuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssm.pojo.PcsPermissionExample" >
+    delete from PCS_PERMISSION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssm.pojo.PcsPermission" >
+    insert into PCS_PERMISSION (PCS_UUID, PCS_ID, PCS_NAME, 
+      PCS_DESCRIPTION, PCS_CREATER, PCS_CREATETIME, 
+      PCS_MODIFIEDER, PCS_MODIFIEDTIME, PCS_STATUS
+      )
+    values (#{pcsUuid,jdbcType=VARCHAR}, #{pcsId,jdbcType=VARCHAR}, #{pcsName,jdbcType=VARCHAR}, 
+      #{pcsDescription,jdbcType=VARCHAR}, #{pcsCreater,jdbcType=VARCHAR}, #{pcsCreatetime,jdbcType=TIMESTAMP}, 
+      #{pcsModifieder,jdbcType=VARCHAR}, #{pcsModifiedtime,jdbcType=TIMESTAMP}, #{pcsStatus,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.pojo.PcsPermission" >
+    insert into PCS_PERMISSION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pcsUuid != null" >
+        PCS_UUID,
+      </if>
+      <if test="pcsId != null" >
+        PCS_ID,
+      </if>
+      <if test="pcsName != null" >
+        PCS_NAME,
+      </if>
+      <if test="pcsDescription != null" >
+        PCS_DESCRIPTION,
+      </if>
+      <if test="pcsCreater != null" >
+        PCS_CREATER,
+      </if>
+      <if test="pcsCreatetime != null" >
+        PCS_CREATETIME,
+      </if>
+      <if test="pcsModifieder != null" >
+        PCS_MODIFIEDER,
+      </if>
+      <if test="pcsModifiedtime != null" >
+        PCS_MODIFIEDTIME,
+      </if>
+      <if test="pcsStatus != null" >
+        PCS_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pcsUuid != null" >
+        #{pcsUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsId != null" >
+        #{pcsId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsName != null" >
+        #{pcsName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsDescription != null" >
+        #{pcsDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsCreater != null" >
+        #{pcsCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsCreatetime != null" >
+        #{pcsCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsModifieder != null" >
+        #{pcsModifieder,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsModifiedtime != null" >
+        #{pcsModifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsStatus != null" >
+        #{pcsStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssm.pojo.PcsPermissionExample" resultType="java.lang.Integer" >
+    select count(*) from PCS_PERMISSION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PCS_PERMISSION
+    <set >
+      <if test="record.pcsUuid != null" >
+        PCS_UUID = #{record.pcsUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsId != null" >
+        PCS_ID = #{record.pcsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsName != null" >
+        PCS_NAME = #{record.pcsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsDescription != null" >
+        PCS_DESCRIPTION = #{record.pcsDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsCreater != null" >
+        PCS_CREATER = #{record.pcsCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsCreatetime != null" >
+        PCS_CREATETIME = #{record.pcsCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pcsModifieder != null" >
+        PCS_MODIFIEDER = #{record.pcsModifieder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsModifiedtime != null" >
+        PCS_MODIFIEDTIME = #{record.pcsModifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pcsStatus != null" >
+        PCS_STATUS = #{record.pcsStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PCS_PERMISSION
+    set PCS_UUID = #{record.pcsUuid,jdbcType=VARCHAR},
+      PCS_ID = #{record.pcsId,jdbcType=VARCHAR},
+      PCS_NAME = #{record.pcsName,jdbcType=VARCHAR},
+      PCS_DESCRIPTION = #{record.pcsDescription,jdbcType=VARCHAR},
+      PCS_CREATER = #{record.pcsCreater,jdbcType=VARCHAR},
+      PCS_CREATETIME = #{record.pcsCreatetime,jdbcType=TIMESTAMP},
+      PCS_MODIFIEDER = #{record.pcsModifieder,jdbcType=VARCHAR},
+      PCS_MODIFIEDTIME = #{record.pcsModifiedtime,jdbcType=TIMESTAMP},
+      PCS_STATUS = #{record.pcsStatus,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.pojo.PcsPermission" >
+    update PCS_PERMISSION
+    <set >
+      <if test="pcsId != null" >
+        PCS_ID = #{pcsId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsName != null" >
+        PCS_NAME = #{pcsName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsDescription != null" >
+        PCS_DESCRIPTION = #{pcsDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsCreater != null" >
+        PCS_CREATER = #{pcsCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsCreatetime != null" >
+        PCS_CREATETIME = #{pcsCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsModifieder != null" >
+        PCS_MODIFIEDER = #{pcsModifieder,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsModifiedtime != null" >
+        PCS_MODIFIEDTIME = #{pcsModifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsStatus != null" >
+        PCS_STATUS = #{pcsStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PCS_UUID = #{pcsUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.pojo.PcsPermission" >
+    update PCS_PERMISSION
+    set PCS_ID = #{pcsId,jdbcType=VARCHAR},
+      PCS_NAME = #{pcsName,jdbcType=VARCHAR},
+      PCS_DESCRIPTION = #{pcsDescription,jdbcType=VARCHAR},
+      PCS_CREATER = #{pcsCreater,jdbcType=VARCHAR},
+      PCS_CREATETIME = #{pcsCreatetime,jdbcType=TIMESTAMP},
+      PCS_MODIFIEDER = #{pcsModifieder,jdbcType=VARCHAR},
+      PCS_MODIFIEDTIME = #{pcsModifiedtime,jdbcType=TIMESTAMP},
+      PCS_STATUS = #{pcsStatus,jdbcType=DECIMAL}
+    where PCS_UUID = #{pcsUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

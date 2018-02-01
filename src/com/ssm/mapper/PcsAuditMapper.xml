@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.mapper.PcsAuditMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.pojo.PcsAudit" >
+    <id column="PCS_UUID" property="pcsUuid" jdbcType="VARCHAR" />
+    <result column="PCS_ID" property="pcsId" jdbcType="VARCHAR" />
+    <result column="PCS_REPORT_TIME" property="pcsReportTime" jdbcType="TIMESTAMP" />
+    <result column="PCS_CATEGORY" property="pcsCategory" jdbcType="VARCHAR" />
+    <result column="PCS_MODULE" property="pcsModule" jdbcType="VARCHAR" />
+    <result column="PCS_RESULT" property="pcsResult" jdbcType="VARCHAR" />
+    <result column="PCS_RESULT_CODE" property="pcsResultCode" jdbcType="VARCHAR" />
+    <result column="PCS_EXT_RESULT" property="pcsExtResult" jdbcType="VARCHAR" />
+    <result column="PCS_EXT_RESULT_CODE" property="pcsExtResultCode" jdbcType="VARCHAR" />
+    <result column="PCS_ACTOR_UUID" property="pcsActorUuid" jdbcType="VARCHAR" />
+    <result column="PCS_ACTOR_ID" property="pcsActorId" jdbcType="VARCHAR" />
+    <result column="PCS_ACTOR_IP_ADDR" property="pcsActorIpAddr" jdbcType="VARCHAR" />
+    <result column="PCS_ACTOR_MAC" property="pcsActorMac" jdbcType="VARCHAR" />
+    <result column="PCS_REAL_ACTOR_UUID" property="pcsRealActorUuid" jdbcType="VARCHAR" />
+    <result column="PCS_REAL_ACTOR_ID" property="pcsRealActorId" jdbcType="VARCHAR" />
+    <result column="PCS_REAL_ACTOR_NAME" property="pcsRealActorName" jdbcType="VARCHAR" />
+    <result column="PCS_CLIENT_ID" property="pcsClientId" jdbcType="VARCHAR" />
+    <result column="PCS_CLIENT_TYPE" property="pcsClientType" jdbcType="VARCHAR" />
+    <result column="PCS_TARGET_UUID" property="pcsTargetUuid" jdbcType="VARCHAR" />
+    <result column="PCS_TARGET_ID" property="pcsTargetId" jdbcType="VARCHAR" />
+    <result column="PCS_TARGET_NAME" property="pcsTargetName" jdbcType="VARCHAR" />
+    <result column="PCS_CREATER" property="pcsCreater" jdbcType="VARCHAR" />
+    <result column="PCS_CREATETIME" property="pcsCreatetime" jdbcType="TIMESTAMP" />
+    <result column="PCS_MODIFIEDER" property="pcsModifieder" jdbcType="VARCHAR" />
+    <result column="PCS_MODIFIEDTIME" property="pcsModifiedtime" jdbcType="TIMESTAMP" />
+    <result column="PCS_STATUS" property="pcsStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PCS_UUID, PCS_ID, PCS_REPORT_TIME, PCS_CATEGORY, PCS_MODULE, PCS_RESULT, PCS_RESULT_CODE, 
+    PCS_EXT_RESULT, PCS_EXT_RESULT_CODE, PCS_ACTOR_UUID, PCS_ACTOR_ID, PCS_ACTOR_IP_ADDR, 
+    PCS_ACTOR_MAC, PCS_REAL_ACTOR_UUID, PCS_REAL_ACTOR_ID, PCS_REAL_ACTOR_NAME, PCS_CLIENT_ID, 
+    PCS_CLIENT_TYPE, PCS_TARGET_UUID, PCS_TARGET_ID, PCS_TARGET_NAME, PCS_CREATER, PCS_CREATETIME, 
+    PCS_MODIFIEDER, PCS_MODIFIEDTIME, PCS_STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ssm.pojo.PcsAuditExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PCS_AUDIT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from PCS_AUDIT
+    where PCS_UUID = #{pcsUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from PCS_AUDIT
+    where PCS_UUID = #{pcsUuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssm.pojo.PcsAuditExample" >
+    delete from PCS_AUDIT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssm.pojo.PcsAudit" >
+    insert into PCS_AUDIT (PCS_UUID, PCS_ID, PCS_REPORT_TIME, 
+      PCS_CATEGORY, PCS_MODULE, PCS_RESULT, 
+      PCS_RESULT_CODE, PCS_EXT_RESULT, PCS_EXT_RESULT_CODE, 
+      PCS_ACTOR_UUID, PCS_ACTOR_ID, PCS_ACTOR_IP_ADDR, 
+      PCS_ACTOR_MAC, PCS_REAL_ACTOR_UUID, PCS_REAL_ACTOR_ID, 
+      PCS_REAL_ACTOR_NAME, PCS_CLIENT_ID, PCS_CLIENT_TYPE, 
+      PCS_TARGET_UUID, PCS_TARGET_ID, PCS_TARGET_NAME, 
+      PCS_CREATER, PCS_CREATETIME, PCS_MODIFIEDER, 
+      PCS_MODIFIEDTIME, PCS_STATUS)
+    values (#{pcsUuid,jdbcType=VARCHAR}, #{pcsId,jdbcType=VARCHAR}, #{pcsReportTime,jdbcType=TIMESTAMP}, 
+      #{pcsCategory,jdbcType=VARCHAR}, #{pcsModule,jdbcType=VARCHAR}, #{pcsResult,jdbcType=VARCHAR}, 
+      #{pcsResultCode,jdbcType=VARCHAR}, #{pcsExtResult,jdbcType=VARCHAR}, #{pcsExtResultCode,jdbcType=VARCHAR}, 
+      #{pcsActorUuid,jdbcType=VARCHAR}, #{pcsActorId,jdbcType=VARCHAR}, #{pcsActorIpAddr,jdbcType=VARCHAR}, 
+      #{pcsActorMac,jdbcType=VARCHAR}, #{pcsRealActorUuid,jdbcType=VARCHAR}, #{pcsRealActorId,jdbcType=VARCHAR}, 
+      #{pcsRealActorName,jdbcType=VARCHAR}, #{pcsClientId,jdbcType=VARCHAR}, #{pcsClientType,jdbcType=VARCHAR}, 
+      #{pcsTargetUuid,jdbcType=VARCHAR}, #{pcsTargetId,jdbcType=VARCHAR}, #{pcsTargetName,jdbcType=VARCHAR}, 
+      #{pcsCreater,jdbcType=VARCHAR}, #{pcsCreatetime,jdbcType=TIMESTAMP}, #{pcsModifieder,jdbcType=VARCHAR}, 
+      #{pcsModifiedtime,jdbcType=TIMESTAMP}, #{pcsStatus,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.pojo.PcsAudit" >
+    insert into PCS_AUDIT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pcsUuid != null" >
+        PCS_UUID,
+      </if>
+      <if test="pcsId != null" >
+        PCS_ID,
+      </if>
+      <if test="pcsReportTime != null" >
+        PCS_REPORT_TIME,
+      </if>
+      <if test="pcsCategory != null" >
+        PCS_CATEGORY,
+      </if>
+      <if test="pcsModule != null" >
+        PCS_MODULE,
+      </if>
+      <if test="pcsResult != null" >
+        PCS_RESULT,
+      </if>
+      <if test="pcsResultCode != null" >
+        PCS_RESULT_CODE,
+      </if>
+      <if test="pcsExtResult != null" >
+        PCS_EXT_RESULT,
+      </if>
+      <if test="pcsExtResultCode != null" >
+        PCS_EXT_RESULT_CODE,
+      </if>
+      <if test="pcsActorUuid != null" >
+        PCS_ACTOR_UUID,
+      </if>
+      <if test="pcsActorId != null" >
+        PCS_ACTOR_ID,
+      </if>
+      <if test="pcsActorIpAddr != null" >
+        PCS_ACTOR_IP_ADDR,
+      </if>
+      <if test="pcsActorMac != null" >
+        PCS_ACTOR_MAC,
+      </if>
+      <if test="pcsRealActorUuid != null" >
+        PCS_REAL_ACTOR_UUID,
+      </if>
+      <if test="pcsRealActorId != null" >
+        PCS_REAL_ACTOR_ID,
+      </if>
+      <if test="pcsRealActorName != null" >
+        PCS_REAL_ACTOR_NAME,
+      </if>
+      <if test="pcsClientId != null" >
+        PCS_CLIENT_ID,
+      </if>
+      <if test="pcsClientType != null" >
+        PCS_CLIENT_TYPE,
+      </if>
+      <if test="pcsTargetUuid != null" >
+        PCS_TARGET_UUID,
+      </if>
+      <if test="pcsTargetId != null" >
+        PCS_TARGET_ID,
+      </if>
+      <if test="pcsTargetName != null" >
+        PCS_TARGET_NAME,
+      </if>
+      <if test="pcsCreater != null" >
+        PCS_CREATER,
+      </if>
+      <if test="pcsCreatetime != null" >
+        PCS_CREATETIME,
+      </if>
+      <if test="pcsModifieder != null" >
+        PCS_MODIFIEDER,
+      </if>
+      <if test="pcsModifiedtime != null" >
+        PCS_MODIFIEDTIME,
+      </if>
+      <if test="pcsStatus != null" >
+        PCS_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pcsUuid != null" >
+        #{pcsUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsId != null" >
+        #{pcsId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsReportTime != null" >
+        #{pcsReportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsCategory != null" >
+        #{pcsCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsModule != null" >
+        #{pcsModule,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsResult != null" >
+        #{pcsResult,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsResultCode != null" >
+        #{pcsResultCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsExtResult != null" >
+        #{pcsExtResult,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsExtResultCode != null" >
+        #{pcsExtResultCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsActorUuid != null" >
+        #{pcsActorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsActorId != null" >
+        #{pcsActorId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsActorIpAddr != null" >
+        #{pcsActorIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsActorMac != null" >
+        #{pcsActorMac,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsRealActorUuid != null" >
+        #{pcsRealActorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsRealActorId != null" >
+        #{pcsRealActorId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsRealActorName != null" >
+        #{pcsRealActorName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsClientId != null" >
+        #{pcsClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsClientType != null" >
+        #{pcsClientType,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsTargetUuid != null" >
+        #{pcsTargetUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsTargetId != null" >
+        #{pcsTargetId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsTargetName != null" >
+        #{pcsTargetName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsCreater != null" >
+        #{pcsCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsCreatetime != null" >
+        #{pcsCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsModifieder != null" >
+        #{pcsModifieder,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsModifiedtime != null" >
+        #{pcsModifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsStatus != null" >
+        #{pcsStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssm.pojo.PcsAuditExample" resultType="java.lang.Integer" >
+    select count(*) from PCS_AUDIT
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PCS_AUDIT
+    <set >
+      <if test="record.pcsUuid != null" >
+        PCS_UUID = #{record.pcsUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsId != null" >
+        PCS_ID = #{record.pcsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsReportTime != null" >
+        PCS_REPORT_TIME = #{record.pcsReportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pcsCategory != null" >
+        PCS_CATEGORY = #{record.pcsCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsModule != null" >
+        PCS_MODULE = #{record.pcsModule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsResult != null" >
+        PCS_RESULT = #{record.pcsResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsResultCode != null" >
+        PCS_RESULT_CODE = #{record.pcsResultCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsExtResult != null" >
+        PCS_EXT_RESULT = #{record.pcsExtResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsExtResultCode != null" >
+        PCS_EXT_RESULT_CODE = #{record.pcsExtResultCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsActorUuid != null" >
+        PCS_ACTOR_UUID = #{record.pcsActorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsActorId != null" >
+        PCS_ACTOR_ID = #{record.pcsActorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsActorIpAddr != null" >
+        PCS_ACTOR_IP_ADDR = #{record.pcsActorIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsActorMac != null" >
+        PCS_ACTOR_MAC = #{record.pcsActorMac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsRealActorUuid != null" >
+        PCS_REAL_ACTOR_UUID = #{record.pcsRealActorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsRealActorId != null" >
+        PCS_REAL_ACTOR_ID = #{record.pcsRealActorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsRealActorName != null" >
+        PCS_REAL_ACTOR_NAME = #{record.pcsRealActorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsClientId != null" >
+        PCS_CLIENT_ID = #{record.pcsClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsClientType != null" >
+        PCS_CLIENT_TYPE = #{record.pcsClientType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsTargetUuid != null" >
+        PCS_TARGET_UUID = #{record.pcsTargetUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsTargetId != null" >
+        PCS_TARGET_ID = #{record.pcsTargetId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsTargetName != null" >
+        PCS_TARGET_NAME = #{record.pcsTargetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsCreater != null" >
+        PCS_CREATER = #{record.pcsCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsCreatetime != null" >
+        PCS_CREATETIME = #{record.pcsCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pcsModifieder != null" >
+        PCS_MODIFIEDER = #{record.pcsModifieder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pcsModifiedtime != null" >
+        PCS_MODIFIEDTIME = #{record.pcsModifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pcsStatus != null" >
+        PCS_STATUS = #{record.pcsStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PCS_AUDIT
+    set PCS_UUID = #{record.pcsUuid,jdbcType=VARCHAR},
+      PCS_ID = #{record.pcsId,jdbcType=VARCHAR},
+      PCS_REPORT_TIME = #{record.pcsReportTime,jdbcType=TIMESTAMP},
+      PCS_CATEGORY = #{record.pcsCategory,jdbcType=VARCHAR},
+      PCS_MODULE = #{record.pcsModule,jdbcType=VARCHAR},
+      PCS_RESULT = #{record.pcsResult,jdbcType=VARCHAR},
+      PCS_RESULT_CODE = #{record.pcsResultCode,jdbcType=VARCHAR},
+      PCS_EXT_RESULT = #{record.pcsExtResult,jdbcType=VARCHAR},
+      PCS_EXT_RESULT_CODE = #{record.pcsExtResultCode,jdbcType=VARCHAR},
+      PCS_ACTOR_UUID = #{record.pcsActorUuid,jdbcType=VARCHAR},
+      PCS_ACTOR_ID = #{record.pcsActorId,jdbcType=VARCHAR},
+      PCS_ACTOR_IP_ADDR = #{record.pcsActorIpAddr,jdbcType=VARCHAR},
+      PCS_ACTOR_MAC = #{record.pcsActorMac,jdbcType=VARCHAR},
+      PCS_REAL_ACTOR_UUID = #{record.pcsRealActorUuid,jdbcType=VARCHAR},
+      PCS_REAL_ACTOR_ID = #{record.pcsRealActorId,jdbcType=VARCHAR},
+      PCS_REAL_ACTOR_NAME = #{record.pcsRealActorName,jdbcType=VARCHAR},
+      PCS_CLIENT_ID = #{record.pcsClientId,jdbcType=VARCHAR},
+      PCS_CLIENT_TYPE = #{record.pcsClientType,jdbcType=VARCHAR},
+      PCS_TARGET_UUID = #{record.pcsTargetUuid,jdbcType=VARCHAR},
+      PCS_TARGET_ID = #{record.pcsTargetId,jdbcType=VARCHAR},
+      PCS_TARGET_NAME = #{record.pcsTargetName,jdbcType=VARCHAR},
+      PCS_CREATER = #{record.pcsCreater,jdbcType=VARCHAR},
+      PCS_CREATETIME = #{record.pcsCreatetime,jdbcType=TIMESTAMP},
+      PCS_MODIFIEDER = #{record.pcsModifieder,jdbcType=VARCHAR},
+      PCS_MODIFIEDTIME = #{record.pcsModifiedtime,jdbcType=TIMESTAMP},
+      PCS_STATUS = #{record.pcsStatus,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.pojo.PcsAudit" >
+    update PCS_AUDIT
+    <set >
+      <if test="pcsId != null" >
+        PCS_ID = #{pcsId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsReportTime != null" >
+        PCS_REPORT_TIME = #{pcsReportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsCategory != null" >
+        PCS_CATEGORY = #{pcsCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsModule != null" >
+        PCS_MODULE = #{pcsModule,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsResult != null" >
+        PCS_RESULT = #{pcsResult,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsResultCode != null" >
+        PCS_RESULT_CODE = #{pcsResultCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsExtResult != null" >
+        PCS_EXT_RESULT = #{pcsExtResult,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsExtResultCode != null" >
+        PCS_EXT_RESULT_CODE = #{pcsExtResultCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsActorUuid != null" >
+        PCS_ACTOR_UUID = #{pcsActorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsActorId != null" >
+        PCS_ACTOR_ID = #{pcsActorId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsActorIpAddr != null" >
+        PCS_ACTOR_IP_ADDR = #{pcsActorIpAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsActorMac != null" >
+        PCS_ACTOR_MAC = #{pcsActorMac,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsRealActorUuid != null" >
+        PCS_REAL_ACTOR_UUID = #{pcsRealActorUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsRealActorId != null" >
+        PCS_REAL_ACTOR_ID = #{pcsRealActorId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsRealActorName != null" >
+        PCS_REAL_ACTOR_NAME = #{pcsRealActorName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsClientId != null" >
+        PCS_CLIENT_ID = #{pcsClientId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsClientType != null" >
+        PCS_CLIENT_TYPE = #{pcsClientType,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsTargetUuid != null" >
+        PCS_TARGET_UUID = #{pcsTargetUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsTargetId != null" >
+        PCS_TARGET_ID = #{pcsTargetId,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsTargetName != null" >
+        PCS_TARGET_NAME = #{pcsTargetName,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsCreater != null" >
+        PCS_CREATER = #{pcsCreater,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsCreatetime != null" >
+        PCS_CREATETIME = #{pcsCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsModifieder != null" >
+        PCS_MODIFIEDER = #{pcsModifieder,jdbcType=VARCHAR},
+      </if>
+      <if test="pcsModifiedtime != null" >
+        PCS_MODIFIEDTIME = #{pcsModifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pcsStatus != null" >
+        PCS_STATUS = #{pcsStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PCS_UUID = #{pcsUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.pojo.PcsAudit" >
+    update PCS_AUDIT
+    set PCS_ID = #{pcsId,jdbcType=VARCHAR},
+      PCS_REPORT_TIME = #{pcsReportTime,jdbcType=TIMESTAMP},
+      PCS_CATEGORY = #{pcsCategory,jdbcType=VARCHAR},
+      PCS_MODULE = #{pcsModule,jdbcType=VARCHAR},
+      PCS_RESULT = #{pcsResult,jdbcType=VARCHAR},
+      PCS_RESULT_CODE = #{pcsResultCode,jdbcType=VARCHAR},
+      PCS_EXT_RESULT = #{pcsExtResult,jdbcType=VARCHAR},
+      PCS_EXT_RESULT_CODE = #{pcsExtResultCode,jdbcType=VARCHAR},
+      PCS_ACTOR_UUID = #{pcsActorUuid,jdbcType=VARCHAR},
+      PCS_ACTOR_ID = #{pcsActorId,jdbcType=VARCHAR},
+      PCS_ACTOR_IP_ADDR = #{pcsActorIpAddr,jdbcType=VARCHAR},
+      PCS_ACTOR_MAC = #{pcsActorMac,jdbcType=VARCHAR},
+      PCS_REAL_ACTOR_UUID = #{pcsRealActorUuid,jdbcType=VARCHAR},
+      PCS_REAL_ACTOR_ID = #{pcsRealActorId,jdbcType=VARCHAR},
+      PCS_REAL_ACTOR_NAME = #{pcsRealActorName,jdbcType=VARCHAR},
+      PCS_CLIENT_ID = #{pcsClientId,jdbcType=VARCHAR},
+      PCS_CLIENT_TYPE = #{pcsClientType,jdbcType=VARCHAR},
+      PCS_TARGET_UUID = #{pcsTargetUuid,jdbcType=VARCHAR},
+      PCS_TARGET_ID = #{pcsTargetId,jdbcType=VARCHAR},
+      PCS_TARGET_NAME = #{pcsTargetName,jdbcType=VARCHAR},
+      PCS_CREATER = #{pcsCreater,jdbcType=VARCHAR},
+      PCS_CREATETIME = #{pcsCreatetime,jdbcType=TIMESTAMP},
+      PCS_MODIFIEDER = #{pcsModifieder,jdbcType=VARCHAR},
+      PCS_MODIFIEDTIME = #{pcsModifiedtime,jdbcType=TIMESTAMP},
+      PCS_STATUS = #{pcsStatus,jdbcType=DECIMAL}
+    where PCS_UUID = #{pcsUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
