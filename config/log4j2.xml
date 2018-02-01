@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- logger获取方式  Logger logger = LogManager.getLogger(本类的名.class) --> 
+<!-- 与slf4j结合之后,logger获取方式  Logger logger = LoggerFactory.getLogger(本类类名.class);  --> 
 <!-- 导入的包  import org.apache.logging.log4j.LogManager;-->
 <!-- import org.apache.logging.log4j.Logger; --> 
 
